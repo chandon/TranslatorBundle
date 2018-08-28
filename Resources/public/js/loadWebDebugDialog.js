@@ -126,8 +126,6 @@ function consoleLog(x) {
     return true;
 }
 
-
-
 function includeYepnopeJs() {
     if (typeof yepnope !== 'undefined') {
         return;

@@ -37,11 +37,12 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
      */
     private $ignoredDomains;
 
-    public function __construct(MessageManager $messageManager, MessageSelector $selector = null, $ignoredDomains = array())
+    public function __construct(MessageManager $messageManager, MessageSelector $selector = null, $ignoredDomains = array(),$translateScreenshot=false)
     {
         $this->messageManager = $messageManager;
         $this->selector = $selector ? : new MessageSelector();
         $this->ignoredDomains = $ignoredDomains;
+        $this->translateScreenshot = $translateScreenshot;
     }
 
     public function enable()
@@ -64,11 +65,21 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
         }
         if ($this->isEnabled() && !$this->isIgnoredDomain($domain) && $translation = $this->messageManager->translateMessage($id, $domain, $locale)) {
             if (empty($parameters)) {
-                return $translation;
+                $ret=$translation;
+            } else {
+                $ret=strtr($translation, $parameters);
             }
-            return strtr($translation, $parameters);
+        } else {
+            $ret= $this->parentTranslator->trans($id, $parameters, $domain, $locale);
         }
-        return $this->parentTranslator->trans($id, $parameters, $domain, $locale);
+        if ($this->translateScreenshot) {
+            $beginCar="𝅳"; //U1D173
+            $middleCar="-"; //U1D175
+            $endCar="𝅴"; //U1D174
+            return $beginCar.$id.$middleCar.$domain.$middleCar.$locale.$middleCar."[".$ret."]".$endCar.$id.$endCar;     
+        } else {
+            return $ret;
+        }
     }
 
     /**
@@ -82,11 +93,21 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
         if ($this->isEnabled() && !$this->isIgnoredDomain($domain) && $translation = $this->messageManager->translateMessage($id, $domain, $locale)) {
             $translation = $this->selector->choose($translation, (int)$number, $locale);
             if (empty($parameters)) {
-                return $translation;
+                $ret=$translation;
+            } else {
+                $ret=strtr($translation, $parameters);
             }
-            return strtr($translation, $parameters);
+        } else {
+            $ret= $this->parentTranslator->transChoice($id, $number, $parameters, $domain, $locale);
         }
-        return $this->parentTranslator->transChoice($id, $number, $parameters, $domain, $locale);
+        if ($this->translateScreenshot) {
+            $beginCar="𝅳"; //U1D173
+            $middleCar="-"; //U1D175
+            $endCar="𝅴"; //U1D174
+            return $beginCar.$id.$middleCar.$domain.$middleCar.$locale.$middleCar."[".$ret."]".$endCar.$id.$endCar;     
+        } else {
+            return $ret;
+        }
     }
 
     /**
