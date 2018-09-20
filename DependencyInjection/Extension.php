@@ -47,6 +47,7 @@ class Extension extends BaseExtension
         }
 
         $is_enabled = $config['is_enabled'];
+        $is_learn_enabled = $config['is_learn_enabled'];
         $is_web_debug_dialog_enabled = $is_enabled ? $config['is_web_debug_dialog_enabled'] : false;
 
         if ($is_enabled && empty($config['managed_locales'])) {
@@ -54,6 +55,7 @@ class Extension extends BaseExtension
         }
 
         $container->setParameter($this->getAlias() . '.is_enabled', $is_enabled);
+        $container->setParameter($this->getAlias() . '.is_learn_enabled', $is_learn_enabled);
         $container->setParameter($this->getAlias() . '.is_web_debug_dialog_enabled', $is_web_debug_dialog_enabled);
         $container->setParameter($this->getAlias() . '.managed_locales', $config['managed_locales']);
         $container->setParameter($this->getAlias() . '.whitelisted_controllers_regexes', $config['whitelisted_controllers_regexes']);

@@ -9,7 +9,7 @@ services:
 
     domis86_translator.translator:
         class: '%domis86_translator.translator.class%'
-        arguments: [@domis86_translator.message_manager, @translator.selector, %domis86_translator.ignored_domains%,%translateScreenshot%]
+        arguments: [@domis86_translator.message_manager, @translator.selector, %domis86_translator.ignored_domains%,%translateScreenshot%,%domis86_domains_to_manualy_translate%]
 
     domis86_translator.controller.translator_controller:
         class: '%domis86_translator.controller.translator_controller.class%'
@@ -39,7 +39,7 @@ services:
     domis86_translator.storage:
         public: false
         class: Domis86\TranslatorBundle\Storage\Storage
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager,%domis86_translator.is_learn_enabled%]
 
     domis86_translator.cache_manager:
         public: false

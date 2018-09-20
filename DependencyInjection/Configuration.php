@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('is_enabled')->defaultFalse()->end()
+                ->booleanNode('is_learn_enabled')->defaultTrue()->end()
                 ->booleanNode('is_web_debug_dialog_enabled')->defaultFalse()->end()
                 ->arrayNode('managed_locales')
                     ->prototype('scalar')->end()

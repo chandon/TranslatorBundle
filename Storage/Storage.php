@@ -18,13 +18,15 @@ class Storage implements StorageInterface
      * @var EntityManager $entityManager
      */
     private $entityManager;
+    private $learn_enabled;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager,$learn_enabled)
     {
         $this->entityManager = EntityManager::create(
             $entityManager->getConnection(),
             $entityManager->getConfiguration()
         );
+        $this->learn_enabled=$learn_enabled;
     }
 
     /**
@@ -110,6 +112,8 @@ class Storage implements StorageInterface
     public function saveMessageTranslation(Message $message, $locale, $translation)
     {
         $messageTranslation = $message->getTranslationForLocale($locale);
+        if (! $this->learn_enabled) return $messageTranslation;
+
         if (!$messageTranslation) {
             $messageTranslation = new MessageTranslation();
             $messageTranslation->setMessage($message);
@@ -144,6 +148,8 @@ class Storage implements StorageInterface
     public function addMissingMessages($missingMessagesList = array())
     {
         if (empty($missingMessagesList)) return;
+        if (! $this->learn_enabled) return;
+
         $messageRepository = $this->getMessageRepository();
         $domains = $this->getAllDomainsAsArray();
         // persist missing Messages from the list
@@ -168,6 +174,7 @@ class Storage implements StorageInterface
     public function addMissingDomains($missingDomainNames = array())
     {
         if (empty($missingDomainNames)) return;
+        if (! $this->learn_enabled) return;
 
         $domains = $this->getAllDomainsAsArray();
         foreach ($missingDomainNames as $missingDomainName) {
@@ -187,6 +194,7 @@ class Storage implements StorageInterface
     public function addMissingMessageLocations($missingMessagesList, LocationVO $locationOfMessages)
     {
         if (empty($missingMessagesList)) return;
+        if ($this->learn_enabled) return;
         $messageRepository = $this->getMessageRepository();
 
         foreach ($missingMessagesList as $domainName => $missingMessagesOfDomain) {
