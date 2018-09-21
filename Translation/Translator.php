@@ -75,7 +75,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
         } else {
             $ret= $this->parentTranslator->trans($id, $parameters, $domain, $locale);
         }
-        if (($this->translateScreenshot) && (($domain==null) || (in_array($domain,$this->domains_to_manualy_translate)))) {
+        if (($this->translateScreenshot) && (! preg_match("/preg_/",$id)) && (($domain==null) || (in_array($domain,$this->domains_to_manualy_translate)))) {
             $beginCar="𝅳"; //U1D173
             $middleCar="-"; //U1D175
             $endCar="𝅴"; //U1D174
@@ -103,7 +103,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface
         } else {
             $ret= $this->parentTranslator->transChoice($id, $number, $parameters, $domain, $locale);
         }
-        if (($this->translateScreenshot) && (($domain==null) || (in_array($domain,$this->domains_to_manualy_translate)))) {
+        if (($this->translateScreenshot) && (! preg_match("/preg_/",$id)) && (($domain==null) || (in_array($domain,$this->domains_to_manualy_translate)))) {
             $beginCar="𝅳"; //U1D173
             $middleCar="-"; //U1D175
             $endCar="𝅴"; //U1D174
