@@ -24,3 +24,19 @@
     {% endset %}
     {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': false } %}
 {% endblock %}
+
+{% block menu %}
+    {# This left-hand menu appears when using the full-screen profiler. #}
+    <span class="label sf-toolbar-info-piece domis86_translator_data_collector_clickable">
+        <span class="domis86_web_debug_dialog_toolbar_icon_img_edit"></span>
+        <span class="icon">
+            <img alt="Translator icon"
+             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADxSURBVHjaYvz//z8DDNy8eXMakMpkwA6mq6urZ2GIggwA4Rs3bkwD4v+4AEgOpAamHoaJ0ozPEKI1IxuCbAATyM9AvzGQC5gYKARUMWA6MPqIUgxVNx0jGokJSPQYeG5p8B+EGWEJCZaIkAMUzWXwhDRh2iSwpogl8xlYsGlG0oiR+j7t8fwfJfaNYdmrYAaJY+cZwS4AavgP0oxPIwh8OeD9/8eHbww/gVg64SQjSIwFpgGoORNnegeCr0d8///68pPhNxDDNIMAI3JmwgVOHM76r/H1Dthm8YgjjCSng/4pbxlucKtgaCbaBfgAQIABAHoDR9rIUJdQAAAAAElFTkSuQmCC"/>
+        </span>
+        <strong>Translations</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {{ render(controller('domis86_translator.controller.translator_controller:webDebugDialogAction', { 'location': collector.location })) }}
+{% endblock %}
