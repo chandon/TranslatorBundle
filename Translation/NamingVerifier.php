@@ -17,7 +17,7 @@ class NamingVerifier
     /** @var array */
     private $managedLocales;
 
-    public function __construct(array $managedLocales)
+    function __construct(array $managedLocales)
     {
         $this->managedLocales = $managedLocales;
     }

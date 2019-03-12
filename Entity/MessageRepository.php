@@ -81,13 +81,18 @@ class MessageRepository extends EntityRepository
     /**
      * @return array Array of Messages
      */
-    public function loadAll()
+    public function loadAll($filter=null)
     {
         $qb = $this->createQueryBuilder('m')
             ->addSelect(array('d', 'mt', 'ml'))
             ->innerJoin('m.domain', 'd')
             ->leftJoin('m.translations', 'mt')
             ->leftJoin('m.messageLocations', 'ml');
+
+        if ($filter) {
+            $qb->andWhere('m.name like :filter')
+               ->setParameter('filter','%'.$filter.'%');
+        }
         $query = $qb->getQuery();
         $result = $query->getResult();
         if (empty($result)) {

@@ -20,7 +20,7 @@ class TranslatorController
     /** @var array */
     private $bundleConfig = array();
 
-    public function __construct(EngineInterface $templating, WebDebugDialog $webDebugDialog, array $bundleConfig)
+    function __construct(EngineInterface $templating, WebDebugDialog $webDebugDialog, array $bundleConfig)
     {
         $this->templating = $templating;
         $this->webDebugDialog = $webDebugDialog;
@@ -85,17 +85,22 @@ class TranslatorController
     /**
      * @return Response
      */
-    public function backendAction()
+    public function backendAction(Request $request)
     {
         if (!$this->bundleConfig['is_enabled']) {
             $this->bundleNotEnabledMessage();
         }
+        if ($request->get("filter")) {
+            $filter=$request->get("filter");
+        } else {
+            $filter=null;
+        }
         return $this->templating->renderResponse(
             'Domis86TranslatorBundle:Translator/Backend:backend.html.twig',
             array(
-                'webDebugDialog' => $this->webDebugDialog->getDataForBackend(),
+                'webDebugDialog' => $this->webDebugDialog->getDataForBackend($filter),
                 'backendMode' => true,
-                'bundleConfig' => $this->bundleConfig
+                'bundleConfig' => $this->bundleConfig,
             )
         );
     }

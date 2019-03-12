@@ -82,9 +82,9 @@ class Storage implements StorageInterface
     /**
      * @return Message[]
      */
-    public function loadAllMessages()
+    public function loadAllMessages($filter=null)
     {
-        return $this->getMessageRepository()->loadAll();
+        return $this->getMessageRepository()->loadAll($filter);
     }
 
     /**

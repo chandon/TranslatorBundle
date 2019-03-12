@@ -56,9 +56,9 @@ class WebDebugDialog
     /**
      * @return array
      */
-    public function getDataForBackend()
+    public function getDataForBackend($filter=null)
     {
-        $messages = $this->storage->loadAllMessages();
+        $messages = $this->storage->loadAllMessages($filter);
         return $this->parseDataForView($messages, true);
     }
 

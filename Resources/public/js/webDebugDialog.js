@@ -115,8 +115,8 @@ function Domis86WebDebugDialogClass(aBackendMode, aAssetsBasePath) {
                 cancel: 'Cancel',
                 submit: 'OK',
                 indicator: 'saving...',
-                tooltip: 'Click to edit translation in database',
-                placeholder: '( Click to edit )',
+                tooltip: 'Click to edit2 translation in database',
+                placeholder: '<span class="is_not_translated">( Click to edit1 )</span>',
                 name: 'message_translation',
                 onblur: null
                 //        onblur : function() {
