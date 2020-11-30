@@ -13,11 +13,6 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": ">=2.6",
-        "symfony/framework-bundle": ">=2.3",
-        "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle": "@stable",
-        "twig/extensions": "~1.0"
     },
     "autoload": {
         "psr-0": { "Domis86\\TranslatorBundle\\": "" }
