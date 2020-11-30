@@ -16,7 +16,7 @@
         "symfony/symfony": ">=2.6",
         "symfony/framework-bundle": ">=2.3",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-bundle": "@stable",
         "twig/extensions": "~1.0"
     },
     "autoload": {
