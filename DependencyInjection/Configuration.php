@@ -43,7 +43,7 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('is_web_debug_dialog_enabled')->defaultFalse()->end()
                 ->arrayNode('managed_locales')
                     ->prototype('scalar')->end()
-                    ->cannotBeEmpty()
+                    ->isRequired()->requiresAtLeastOneElement()
                 ->end()
                 ->arrayNode('whitelisted_controllers_regexes')
                     ->prototype('scalar')->end()
@@ -102,7 +102,7 @@ class Configuration implements ConfigurationInterface
         /** @noinspection PhpUndefinedMethodInspection */
         $node
             ->prototype('scalar')->end()
-            ->cannotBeEmpty()
+            ->isRequired()->requiresAtLeastOneElement()
             ->defaultValue($defaultItems)
         ;
 
